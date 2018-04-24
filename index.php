@@ -24,6 +24,19 @@
                 <?php echo $cc->{'current_observation'}->{'temp_f'}; ?>
             </small>
         </h2>
+        <h3>
+            Current Wind Speed: 
+            <small>
+                <?php echo $cc->{'current_observation'}->{'wind_mph'} ?>
+            </small>
+        </h3>
+        <h3>
+            Current Weather:
+            <small>
+                <?php echo $cc->{'current_observation'}->{'weather'} ?>
+            </small>
+        </h3>
+
 
         <div class="card" style="width: 18rem;">
             <img 
