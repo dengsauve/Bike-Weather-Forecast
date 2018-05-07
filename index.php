@@ -6,7 +6,6 @@
 
     $cc_json = file_get_contents($cc_url);
     $hr_json = file_get_contents($hr_url);
-
     $ten_json = file_get_contents($ten_url);
 
     $cc = json_decode($cc_json);
