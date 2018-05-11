@@ -187,7 +187,7 @@
                             count: -1,
                             units: {
                                 days: {format: ['MMM dd']},
-                                hours: {format: ['HH:mm', 'ha']}
+                                hours: {format: ['HH:mm a', 'ha']}
                             }
                         },
                         minorGridlines: {
