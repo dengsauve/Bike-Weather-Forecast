@@ -56,6 +56,13 @@
 
             <br/>
 
+            <div class="row">
+                <div class="col-12">
+                    <h2>Hourly Forecast Chart</h2>
+                    <div id="line_chart" style="width: 100%; height: 600px;"></div>
+                </div>
+            </div>
+
             <h2>
                 Ten Day Forecast
             </h2>
@@ -130,16 +137,57 @@
                     </tbody>
                 </table>
             </div>
+            
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                // Loads core lib + lib for line chart
+                google.charts.load('current', {packages: ['corechart', 'line']});
 
-            <div class="row">
-                <div id="chart_div" style="width: 100%;"></div>
-            </div>
+                // Creates call once load is complete to do drawBasic()
+                google.charts.setOnLoadCallback(drawBasic);
+
+                // Actual function creating the line chart
+                function drawBasic() {
+
+                    // Initialize the data object
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', 'Temperature');
+                    data.addColumn('number', 'Windspeed');
+                    data.addColumn('number', 'Precipitation Possibility');
+
+                    data.addRows([
+                        <?php
+                            $hourly_forecast = $hr->{'hourly_forecast'};
+
+                            foreach($hourly_forecast as $key => $forecast_hour)
+                            {
+                                echo "[" . $key . ", " 
+                                . $forecast_hour->{'temp'}->{'english'} . ", "
+                                . $forecast_hour->{'wspd'}->{'english'} . ", "
+                                . $forecast_hour->{'pop'} . "], ";
+                            }
+                        ?>
+                    ]);
+
+                    var options = {
+                        hAxis: {
+                        title: 'Hour'
+                        },
+                        vAxis: {
+                        title: 'Temperature, Wind, PoP'
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
+
+                    chart.draw(data, options);
+                }
+            </script>
 
         </div>
 
         <script type="text/javascript" src="/node_modules/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/node_modules/bootstrap/dist/bootstrap.js" ></script>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript" src="/charts.js"></script>
     </body>
 </html>
