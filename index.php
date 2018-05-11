@@ -78,20 +78,25 @@
 
             <br/>
 
-            <h2>Hourly Forecast</h2>
-
             <div class="row">
+                <h2>Hourly Forecast for Spokane, WA</h2>
                 <table class="table table-sm">
                     <thead>
                         <tr>
-                            <th scope="col">
+                            <th>
                                 Date and Time
                             </th>
-                            <th scope="col">
+                            <th>
                                 Temperature
                             </th>
                             <th>
+                                Possible Precip
+                            </th>
+                            <th>
                                 Wind Speed
+                            </th>
+                            <th>
+                                Wind Direction
                             </th>
                         </tr>
                     </thead>
@@ -102,15 +107,23 @@
 
                             foreach($hourly_forecast as $forecast_hour)
                             {
-                                // Date Time
                                 echo "<tr>";
-                                echo "<th scope='row'>" . $forecast_hour->{'FCTTIME'}->{'pretty'} . "</th>";
+
+                                // Date Time
+                                echo "<td scope='row'>" . $forecast_hour->{'FCTTIME'}->{'pretty'} . "</td>";
 
                                 // Temperature
-                                echo "<th scope='row'>" . $forecast_hour->{'temp'}->{'english'} . " &deg;F</th>";
+                                echo "<td>" . $forecast_hour->{'temp'}->{'english'} . " &deg;F</td>";
+
+                                // Possibility of Precipitation (PoP)
+                                echo "<td>" . $forecast_hour->{'pop'} . "%</td>";
 
                                 // Wind Speed
-                                echo "<th scope='row'>" . $forecast_hour->{'wspd'}->{'english'} . " MPH</th>";
+                                echo "<td>" . $forecast_hour->{'wspd'}->{'english'} . " MPH</td>";
+
+                                // Wind Direction
+                                echo "<td>" . $forecast_hour->{'wdir'}->{'dir'} . "</td>";
+
                                 echo "</tr>";
                             }
                         ?>
