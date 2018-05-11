@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="col-12">
                     <h2>Hourly Forecast Chart</h2>
-                    <div id="line_chart" style="width: 100%; height: 600px;"></div>
+                    <div id="line_chart" style="width: 100%; height: 50vh; min-height: 250px;"></div>
                 </div>
             </div>
 
@@ -151,7 +151,7 @@
 
                     // Initialize the data object
                     var data = new google.visualization.DataTable();
-                    data.addColumn('number', 'X');
+                    data.addColumn('datetime', 'Time of Day');
                     data.addColumn('number', 'Temperature');
                     data.addColumn('number', 'Windspeed');
                     data.addColumn('number', 'Precipitation Possibility');
@@ -162,7 +162,17 @@
 
                             foreach($hourly_forecast as $key => $forecast_hour)
                             {
-                                echo "[" . $key . ", " 
+                                $k = date("Y-m-d H:i:s", strtotime("+{$key}hours"));
+                                
+                                $tStr = substr($k, 0,4) . ", "
+                                . substr($k, 5,2) . ", "
+                                . substr($k, 8,2) . ", "
+                                . substr($k, 11,2) . ", " 
+                                . substr($k, 14,2);
+
+                                echo "["
+                                .  "new Date($tStr)"
+                                . ", " 
                                 . $forecast_hour->{'temp'}->{'english'} . ", "
                                 . $forecast_hour->{'wspd'}->{'english'} . ", "
                                 . $forecast_hour->{'pop'} . "], ";
@@ -172,7 +182,20 @@
 
                     var options = {
                         hAxis: {
-                        title: 'Hour'
+                        title: 'Time of Day',
+                        gridlines: {
+                            count: -1,
+                            units: {
+                                days: {format: ['MMM dd']},
+                                hours: {format: ['HH:mm', 'ha']}
+                            }
+                        },
+                        minorGridlines: {
+                            units: {
+                                hours: {format: ['hh:mm:ss a', 'ha']},
+                                minutes: {format: ['HH:mm a Z', ':mm']}
+                            }
+                        }
                         },
                         vAxis: {
                         title: 'Temperature, Wind, PoP'
