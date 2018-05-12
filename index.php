@@ -17,63 +17,46 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bikercast</title>
-
+        <title>bikercast</title>
+        <meta name="description" content="Providing critical weather forecast information to determine if biking into work is a good idea." />
+        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css" />
-
     </head>
     <body>
         <div class="container">
 
-            <h1>Hello User</h1>
+            <h1 class="display-4">bikercast</h1>
+
+            <p class="lead">
+                Providing critical weather forecast information to determine if biking into work is a good idea.
+            </p>
 
             <div class="row">
-                <div class="card">
-                    <div class="card-body">
-                        <img class="img-thumbnail" src="<?php echo $cc->{'current_observation'}->{'icon_url'};?>" alt="Card image cap">
-                        <h5 class="card-title">Right Now</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            Temperature: <?php echo $cc->{'current_observation'}->{'temp_f'}; ?>
-                            <br/>
-                            Windspeed: <?php echo $cc->{'current_observation'}->{'wind_mph'} ?>
-                        </h6>
-                        <p class="card-text">
-                            Conditions: <?php echo $cc->{'current_observation'}->{'weather'} ?>
-                        </p>
-                        <a class="btn btn-primary" href="<?php echo $cc->{'current_observation'}->{'forecast_url'};?>">Forecast</a>
-                    </div>
+                <div class="col-12">
+                    <div id="line_chart" style="width: 100%; height: 50vh; min-height: 250px;"></div>
                 </div>
-                <div class="card" style="width: 9rem;">
-                    <img 
-                    class="card-img-top" 
-                    src="<?php echo $cc->{'current_observation'}->{'image'}->{'url'}; ?>" 
-                    alt="Card image cap">
-                    <div class="card-body">
-                        <a href="http://www.wunderground.com" class="card-icon">Visit Weather Underground</a>
-                    </div>
-                </div>
+                <a href="http://www.wunderground.com">
+                                <img class="img-fluid" 
+                                src="<?php echo $cc->{'current_observation'}->{'image'}->{'url'}; ?>" 
+                                alt="Visit Weather Underground!" />
+                </a>
             </div>
 
             <br/>
 
             <div class="row">
-                <div class="col-12">
-                    <h2>Hourly Forecast Chart</h2>
-                    <div id="line_chart" style="width: 100%; height: 50vh; min-height: 250px;"></div>
-                </div>
-            </div>
-
-            <h2>
-                Ten Day Forecast
-            </h2>
-
-            <div class="row">
+                <h2 class="col-12">
+                    Ten Day Forecast
+                </h2>
                 <?php
                     $days = $ten->{'forecast'}->{'txt_forecast'}->{'forecastday'};
 
                     foreach($days as $day)
                     {
-                        echo '<div class="card col-xs-12 col-sm-6 col-md-4 col-lg-3">';
+                        echo '<div class="card col-12 col-sm-6 col-md-4 col-lg-3">';
                         echo '  <div class="card-body">';
                         echo "      <h5 class='card-title'>" . $day->{'title'} . "</h5>";
                         echo '      <p class="card-text">' . $day->{'fcttext'} . "</p>";
@@ -182,23 +165,30 @@
 
                     var options = {
                         hAxis: {
-                        title: 'Time of Day',
-                        gridlines: {
-                            count: -1,
-                            units: {
-                                days: {format: ['MMM dd']},
-                                hours: {format: ['HH:mm a', 'ha']}
+                            title: 'Time of Day',
+                            gridlines: {
+                                count: -1,
+                                units: {
+                                    days: {format: ['MMM dd']},
+                                    hours: {format: ['HH:mm a', 'ha']}
+                                }
+                            },
+                            minorGridlines: {
+                                units: {
+                                    hours: {format: ['hh:mm:ss a', 'ha']},
+                                    minutes: {format: ['HH:mm a Z', ':mm']}
+                                }
                             }
-                        },
-                        minorGridlines: {
-                            units: {
-                                hours: {format: ['hh:mm:ss a', 'ha']},
-                                minutes: {format: ['HH:mm a Z', ':mm']}
-                            }
-                        }
                         },
                         vAxis: {
-                        title: 'Temperature, Wind, PoP'
+                            title: 'Temperature, Wind, PoP'
+                        },
+                        'title':'36 Hour Forecast',
+                        titleTextStyle: {
+                            color: "#212529",
+                            fontSize: 38,
+                            fontName: 'Arial',
+                            bold: false
                         }
                     };
 
