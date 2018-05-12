@@ -19,7 +19,8 @@
     <head>
         <title>bikercast</title>
         <meta name="description" content="Providing critical weather forecast information to determine if biking into work is a good idea." />
-        
+        <meta name="keywords" content="weather cycling forecast biking cyclist motorcycle" />
+
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         
