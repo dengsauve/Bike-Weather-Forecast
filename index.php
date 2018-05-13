@@ -4,25 +4,30 @@
         <div class="container">
             <div class="row">
                 <section class="col-12">
-                    <h1 class="display-4">bikercast</h1>
+                    <h1 class="display-4 d-inline">bikercast</h1>
                     <p class="lead">
                         Providing critical weather forecast information to determine if biking into work is a good idea.
                     </p>
                     <!-- Daily Conditions -->
                     <?php require 'php/forecast.php'; ?>
+                    <p class="text-muted">
+                        Not Spokane, WA? Change your location.
+                    </p>
                 </section>
             </div>
 
             <div class="row">
                 <div class="col-12">
-                    <div id="line_chart" style="width: 100%; height: 50vh; min-height: 250px;"></div>
+                    <div id="line_chart" class="shadow-sm"></div>
                 </div>
             </div>
 
             <div class="row">
-                <h2 class="col-12">
-                    Ten Day Forecast
-                </h2>
+                <section class="col-12">
+                    <h2>
+                        Ten Day Forecast
+                    </h2>
+                </section>
                 <?php require 'php/ten.php'; ?>
             </div>
         </div>

@@ -44,7 +44,8 @@ function drawBasic() {
             fontSize: 38,
             fontName: 'Arial',
             bold: false
-        }
+        },
+        height: 300
     };
 
     var today = new Date();
